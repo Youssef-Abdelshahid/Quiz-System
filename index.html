@@ -7,6 +7,11 @@
     <title>Quiz Quizzes</title>
     <link rel="stylesheet" href="styles/home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz quizs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="styles/home.css" />
 </head>
 
 <body>
@@ -49,6 +54,33 @@
                 <option value="math">Math</option>
             </select>
         </div>
+    <header>
+        <div class="logo">Logo</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+            </ul>
+        </nav>
+        <button class="login-btn" onclick="openPopup()">Login</button>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Quiz games</h1>
+            <p>Quiz your knowledge of the world in any of these quiz games! Have fun playing funny quizzes like Google
+                Feud
+                and the Idiot Test or test your grasp of world events in various quiz and trivia quizs!</p>
+
+            <div class="select-container">
+                <select id="sort">
+                    <option value="top">Top quizzes</option>
+                    <option value="new">General knowledge</option>
+                    <option value="sports">Sports</option>
+                    <option value="movies">Movies</option>
+                    <option value="science">Science</option>
+                    <option value="math">Math</option>
+                </select>
+            </div>
 
         <div class="grid">
             <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
@@ -105,6 +137,87 @@
     </footer>
 
 
+            <div class="grid">
+                <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
+                    <p>Guess Their Answer</p>
+                </div>
+                <div class="quiz"><img src="images/logo_quiz.png" alt="quiz 1">
+                    <p>Guess Their Answer</p>
+                </div>
+                <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
+                    <p>Guess Their Answer</p>
+                </div>
+                <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
+                    <p>Guess Their Answer</p>
+                </div>
+                <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
+                    <p>Guess Their Answer</p>
+                </div>
+                <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
+                    <p>Guess Their Answer</p>
+                </div>
+                <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
+                    <p>Guess Their Answer</p>
+                </div>
+                <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
+                    <p>Guess Their Answer</p>
+                </div>
+                <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
+                    <p>Guess Their Answer</p>
+                </div>
+                <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
+                    <p>Guess Their Answer</p>
+                </div>
+                <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
+                    <p>Guess Their Answer</p>
+                </div>
+                <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
+                    <p>Guess Their Answer</p>
+                </div>
+            </div>
+            <div class="pagination">
+                <button class="prev">&lt;</button>
+                <button class="page active">1</button>
+                <button class="page">2</button>
+                <button class="page">3</button>
+                <span class="dots">...</span>
+                <button class="page">12</button>
+                <button class="next">&gt;</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Popup -->
+    <div class="popup-container" id="popup-container" style="display: none;">
+        <button class="close-btn" onclick="closePopup()">✖</button>
+        <div class="popup-content" id="popup-content">
+            <h2 id="popup-title">Log in</h2>
+
+            <button class="social-btn google-btn"><i class="fab fa-google"></i> Continue with Google</button>
+            <button class="social-btn facebook-btn"><i class="fab fa-facebook-f"></i> Continue with Facebook</button>
+
+            <div class="options"><span></span> OR <span></span></div>
+
+            <div id="login-form">
+                <input type="email" placeholder="Email" id="email" />
+                <input type="password" placeholder="Password" id="password" />
+                <button class="btn-submit" onclick="login()">Login</button>
+                <a href="#" onclick="toggleForm('signup')">Don't have an account? Sign Up</a>
+            </div>
+
+            <div id="signup-form" style="display: none; ">
+                <input type="text" placeholder="Full Name" id="signup-name" />
+                <input type="email" placeholder="Email" id="signup-email" />
+                <input type="password" placeholder="Password" id="signup-password" />
+                <input type="password" placeholder="Confirm Password" id="signup-confirm-password" />
+                <button class="btn-submit" onclick="signup()">Sign Up</button>
+                <a href="#" onclick="toggleForm('login')">Already have an account? Log In</a>
+            </div>
+        </div>
+    </div>
+    <div id="popup-overlay"></div>
+
+    <script src="scripts/home.js"></script>
 </body>
 
 </html>
