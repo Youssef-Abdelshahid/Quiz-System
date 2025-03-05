@@ -3,7 +3,49 @@ body {
     color: white;
     font-family: Arial, sans-serif;
     margin: 0;
+    margin-top: 50px;
     padding: 0;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #25273d;
+    padding: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 15px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+}
+
+.login-btn {
+    background: none;
+    color: white;
+    border: 2px solid white;
+    padding: 10px 15px;
+    margin-right: 1%;
+    cursor: pointer;
+    border-radius: 20px;
 }
 
 .container {
@@ -45,10 +87,10 @@ select {
 }
 
 .select-container select {
-    appearance: none; 
+    appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    padding-right: 30px; 
+    padding-right: 30px;
 }
 
 .select-container::after {
@@ -59,9 +101,8 @@ select {
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none; 
+    pointer-events: none;
 }
-
 
 .grid {
     display: grid;
@@ -71,7 +112,8 @@ select {
 }
 
 .quiz {
-    background-color: #222;
+    /* background-color: #222; */
+    background-color: #25273d;
     padding: 15px;
     border-radius: 10px;
     text-align: center;
@@ -80,13 +122,13 @@ select {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 255px; 
+    height: 255px;
 }
 
 .quiz img {
     width: 100%;
-    height: 200px; 
-    object-fit: cover; 
+    height: 200px;
+    object-fit: cover;
     border-radius: 10px;
 }
 
@@ -100,7 +142,6 @@ select {
     text-align: center;
 }
 
-
 .quiz:hover {
     transform: scale(1.08);
     cursor: pointer;
@@ -112,12 +153,14 @@ select {
     align-items: center;
     margin-top: 20px;
     gap: 8px;
-    background: #222;
+    /* background: #222; */
+    background-color: #25273d;
     padding: 10px 15px;
     border-radius: 10px;
 }
 
-.pagination button, .pagination .dots {
+.pagination button,
+.pagination .dots {
     background: none;
     border: none;
     color: white;
@@ -144,4 +187,216 @@ select {
 .pagination button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #121212;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #25273d;
+    border-radius: 10px;
+    transition: background 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(79, 55, 197);
+}
+
+html {
+    scrollbar-color: #25273d #121212;
+    scrollbar-width: thin;
+}
+
+/* Popup */
+.popup-container {
+    position: fixed;
+    top: 70px;
+    right: 10px;
+    width: 350px;
+    max-width: 90%;
+    height: 100%;
+    max-height: calc(100vh - 120px);
+    background: #25273d;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    z-index: 1002;
+    animation: slideIn 0.5s ease-in-out;
+    display: none;
+    flex-direction: column;
+    overflow: auto;
+}
+
+#popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+}
+
+.popup-content,
+#login-form,
+#signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 80vh;
+    padding-bottom: 15px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.close-btn:hover {
+    transform: scale(1.2);
+}
+
+.popup-container input {
+    padding: 12px;
+    border-radius: 15px;
+    border: none;
+    background: #333;
+    color: white;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background 0.3s ease;
+}
+
+.popup-container input:focus {
+    background: #444;
+    outline: none;
+}
+
+.btn-submit,
+.social-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    gap: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-submit {
+    background: rgb(104, 66, 255);
+    color: white;
+}
+
+.btn-submit:hover {
+    background: #4f3bbf;
+}
+
+.google-btn {
+    background: #db4437;
+    color: white;
+}
+
+.facebook-btn {
+    background: #1877f2;
+    color: white;
+}
+
+.google-btn i,
+.facebook-btn i {
+    font-size: 20px;
+}
+
+.google-btn:hover {
+    background: #c1351d;
+}
+
+.facebook-btn:hover {
+    background: #1558d6;
+}
+
+.options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bbb;
+    font-size: 14px;
+    font-weight: bold;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.options span {
+    flex: 1;
+    height: 1px;
+    background: #555;
+}
+
+a {
+    color: #1e90ff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0d6efd;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .popup-container {
+        right: 10px;
+        width: 90%;
+        max-width: 85%;
+        padding: 15px;
+    }
+
+    .popup-content {
+        max-height: 75vh;
+    }
+
+    .btn-submit,
+    .social-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .google-btn i,
+    .facebook-btn i {
+        font-size: 18px;
+    }
 }
