@@ -4,16 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz quizs</title>
+    <title>Quiz Quizzes</title>
     <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
-    <div class="container">
-        <h1>Quiz games</h1>
-        <p>Quiz your knowledge of the world in any of these quiz games! Have fun playing funny quizzes like Google Feud
-            and the Idiot Test or test your grasp of world events in various quiz and trivia quizs!</p>
+    
+    <header>
+        <div class="left-side-header">
+            <button class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <img src="images\Main_Logo.webp" alt="Logo" class="logo">
+            <span class="site-name">Quiz Games</span>
+        </div>
+    
+        <div class="search-bar">
+            <input type="text" placeholder="Search">
+            <button class="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    
+        <div class="right-side-header">
+            <button class="icon-btn"><i class="fas fa-users"></i></button>
+            <button class="icon-btn"><i class="fas fa-heart"></i></button>
+            <button class="login-btn">Log in</button>
+        </div>
+    </header>
 
+    <div class="container">
+        <h1>Quiz Games</h1>
+        <p class="subhead">Quiz your knowledge of the world in these exciting quiz games!
+            Have fun playing funny quizzes like Google Feud and the Idiot Test.  
+            Or test your grasp of world events in various trivia challenges!</p>            
         <div class="select-container">
             <select id="sort">
                 <option value="top">Top quizzes</option>
@@ -73,6 +98,13 @@
             <button class="next">&gt;</button>
         </div>        
     </div>
+
+
+    <footer>
+        <p>&copy; 2025 Quiz Games. All Rights Reserved.</p>
+    </footer>
+
+
 </body>
 
 </html>
