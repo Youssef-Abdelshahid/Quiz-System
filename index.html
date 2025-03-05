@@ -7,15 +7,9 @@
     <title>Quiz Quizzes</title>
     <link rel="stylesheet" href="styles/home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quiz quizs</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-    <link rel="stylesheet" href="styles/home.css" />
 </head>
 
 <body>
-    
     <header>
         <div class="left-side-header">
             <button class="menu-btn">
@@ -24,44 +18,19 @@
             <img src="images\Main_Logo.webp" alt="Logo" class="logo">
             <span class="site-name">Quiz Games</span>
         </div>
-    
+
         <div class="search-bar">
             <input type="text" placeholder="Search">
             <button class="search-btn">
                 <i class="fas fa-search"></i>
             </button>
         </div>
-    
+
         <div class="right-side-header">
             <button class="icon-btn"><i class="fas fa-users"></i></button>
             <button class="icon-btn"><i class="fas fa-heart"></i></button>
-            <button class="login-btn">Log in</button>
+            <button class="login-btn" onclick="openPopup()">Login</button>
         </div>
-    </header>
-
-    <div class="container">
-        <h1>Quiz Games</h1>
-        <p class="subhead">Quiz your knowledge of the world in these exciting quiz games!
-            Have fun playing funny quizzes like Google Feud and the Idiot Test.  
-            Or test your grasp of world events in various trivia challenges!</p>            
-        <div class="select-container">
-            <select id="sort">
-                <option value="top">Top quizzes</option>
-                <option value="new">General knowledge</option>
-                <option value="sports">Sports</option>
-                <option value="movies">Movies</option>
-                <option value="science">Science</option>
-                <option value="math">Math</option>
-            </select>
-        </div>
-    <header>
-        <div class="logo">Logo</div>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-            </ul>
-        </nav>
-        <button class="login-btn" onclick="openPopup()">Login</button>
     </header>
 
     <main>
@@ -81,61 +50,6 @@
                     <option value="math">Math</option>
                 </select>
             </div>
-
-        <div class="grid">
-            <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
-                <p>Guess Their Answer</p>
-            </div>
-            <div class="quiz"><img src="images/logo_quiz.png" alt="quiz 1">
-                <p>Guess Their Answer</p>
-            </div>
-            <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
-                <p>Guess Their Answer</p>
-            </div>
-            <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
-                <p>Guess Their Answer</p>
-            </div>
-            <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
-                <p>Guess Their Answer</p>
-            </div>
-            <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
-                <p>Guess Their Answer</p>
-            </div>
-            <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
-                <p>Guess Their Answer</p>
-            </div>
-            <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
-                <p>Guess Their Answer</p>
-            </div>
-            <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
-                <p>Guess Their Answer</p>
-            </div>
-            <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
-                <p>Guess Their Answer</p>
-            </div>
-            <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
-                <p>Guess Their Answer</p>
-            </div>
-            <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
-                <p>Guess Their Answer</p>
-            </div>
-        </div>
-        <div class="pagination">
-            <button class="prev">&lt;</button>
-            <button class="page active">1</button>
-            <button class="page">2</button>
-            <button class="page">3</button>
-            <span class="dots">...</span>
-            <button class="page">12</button>
-            <button class="next">&gt;</button>
-        </div>        
-    </div>
-
-
-    <footer>
-        <p>&copy; 2025 Quiz Games. All Rights Reserved.</p>
-    </footer>
-
 
             <div class="grid">
                 <div class="quiz"><img src="images/turtle.png" alt="quiz 1">
@@ -216,6 +130,10 @@
         </div>
     </div>
     <div id="popup-overlay"></div>
+
+    <footer>
+        <p>&copy; 2025 Quiz Games. All Rights Reserved.</p>
+    </footer>
 
     <script src="scripts/home.js"></script>
 </body>
