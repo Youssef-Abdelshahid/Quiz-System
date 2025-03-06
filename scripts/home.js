@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", () => {
+    updateUserInterface();
+});
+
 function disableScroll() {
     window.addEventListener("wheel", preventScroll, { passive: false });
     window.addEventListener("touchmove", preventScroll, { passive: false });
@@ -65,9 +69,19 @@ function login() {
     }
 
     if (email === adminEmail && password === adminPassword) {
-        alert("Welcome Admin!");
+        // alert("Welcome Admin!");
+        localStorage.setItem("loggedInUserEmail", adminEmail);
+        localStorage.setItem("loggedInUserName", "Admin");
+        localStorage.setItem("loggedInUserRole", "Admin");
+        updateUserInterface();
+        closePopup();
     } else if (email === userEmail && password === userPassword) {
-        alert("Welcome User!");
+        // alert("Welcome User!");
+        localStorage.setItem("loggedInUserEmail", userEmail);
+        localStorage.setItem("loggedInUserName", "Ahmed");
+        localStorage.setItem("loggedInUserRole", "User");
+        updateUserInterface();
+        closePopup();
     } else {
         alert("Invalid email or password!");
     }
@@ -103,4 +117,59 @@ function signup() {
     }
 
     alert("Sign-up successful!");
+}
+
+
+
+function updateUserInterface() {
+    let userEmail = localStorage.getItem("loggedInUserEmail");
+    let userName = localStorage.getItem("loggedInUserName");
+    let userRole = localStorage.getItem("loggedInUserRole");
+
+    let loginButton = document.querySelector(".login-btn");
+    let rightSideHeader = document.querySelector(".right-side-header");
+
+    if (userEmail && userName && userRole) {
+        if (loginButton) {
+            loginButton.style.display = "none"; // Hide login button
+        }
+
+        // Check if the profile button already exists to prevent multiple duplicates
+        if (!document.querySelector(".profile-btn")) {
+            let profileButton = document.createElement("button");
+            profileButton.classList.add("icon-btn", "profile-btn");
+            profileButton.innerHTML = `<i class="fas fa-user-circle"></i>`;
+            profileButton.onclick = openProfilePopup; // Open profile popup
+            rightSideHeader.appendChild(profileButton);
+        }
+    }
+}
+
+
+function openProfilePopup() {
+    let userEmail = localStorage.getItem("loggedInUserEmail");
+    let userName = localStorage.getItem("loggedInUserName");
+    let userRole = localStorage.getItem("loggedInUserRole");
+
+    if (!userEmail || !userName || !userRole) return;
+
+    document.getElementById("popup-container").style.display = "flex";
+    document.getElementById("popup-overlay").style.display = "flex";
+    disableScroll();
+
+    document.getElementById("popup-title").innerText = userRole === "Admin" ? "Admin Profile" : "User Profile";
+    document.getElementById("popup-content").innerHTML = `
+        <h2>Welcome, ${userName}</h2>
+        <p>Email: ${userEmail}</p>
+        <p>Role: ${userRole}</p>
+        <button class="btn-submit" onclick="logout()">Logout</button>
+    `;
+}
+
+
+function logout() {
+    localStorage.removeItem("loggedInUserEmail");
+    localStorage.removeItem("loggedInUserName");
+    localStorage.removeItem("loggedInUserRole");
+    location.reload(); 
 }
