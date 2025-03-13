@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game - Game Details</title>
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/quiz_details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="left-side-header">
+            <button class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <img src="images/Main_Logo.webp" alt="Logo" class="logo">
+            <span class="site-name">Quiz Games</span>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" placeholder="Search">
+            <button class="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+        <div class="right-side-header">
+            <button class="icon-btn"><i class="fas fa-users"></i></button>
+            <button class="icon-btn"><i class="fas fa-heart"></i></button>
+            <button class="login-btn" onclick="openPopup()">Login</button>
+        </div>
+    </header>
+    
+    <main class="quiz-details">
+        <div class="quiz-container">
+            <img src="images/logo_quiz.png" alt="Quiz Image" class="quiz-image">
+            <h1 class="quiz-title">Guess Their Answer</h1>
+            <p class="quiz-description">Test your ability to predict what most people think! Answer fun and tricky questions to see if you can match the majority’s responses.</p>
+            <p class="quiz-info"><strong>Questions:</strong> 20</p>
+            <p class="quiz-info"><strong>Category:</strong> Trivia</p>
+            <p class="quiz-info"><strong>Difficulty:</strong> Medium</p>
+            <p class="quiz-rating"><strong>Rating:</strong> ⭐⭐⭐⭐☆ (4.5/5)</p>
+            <button class="play-btn">Play Now</button>
+        </div>
+    </main>
+    
+    <div class="popup-container" id="popup-container" style="display: none;">
+        <button class="close-btn" onclick="closePopup()">✖</button>
+        <div class="popup-content" id="popup-content">
+            <h2 id="popup-title">Log in</h2>
+
+            <button class="social-btn google-btn"><i class="fab fa-google"></i> Continue with Google</button>
+            <button class="social-btn facebook-btn"><i class="fab fa-facebook-f"></i> Continue with Facebook</button>
+
+            <div class="options"><span></span> OR <span></span></div>
+
+            <div id="login-form">
+                <input type="email" placeholder="Email" id="email" />
+                <input type="password" placeholder="Password" id="password" />
+                <button class="btn-submit" onclick="login()">Login</button>
+                <a href="#" onclick="toggleForm('signup')">Don't have an account? Sign Up</a>
+            </div>
+
+            <div id="signup-form" style="display: none; ">
+                <input type="text" placeholder="Full Name" id="signup-name" />
+                <input type="email" placeholder="Email" id="signup-email" />
+                <input type="password" placeholder="Password" id="signup-password" />
+                <input type="password" placeholder="Confirm Password" id="signup-confirm-password" />
+                <button class="btn-submit" onclick="signup()">Sign Up</button>
+                <a href="#" onclick="toggleForm('login')">Already have an account? Log In</a>
+            </div>
+        </div>
+    </div>
+    <div id="popup-overlay"></div>
+
+    <footer>
+        <p>&copy; 2025 Quiz Games. All Rights Reserved.</p>
+    </footer>
+
+    <script src="scripts/home.js"></script>
+</body>
+</html>
