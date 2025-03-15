@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game - Game Details</title>
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/quiz.css">
+    <link rel="stylesheet" href="styles/quiz_details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="left-side-header">
+            <button class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <img src="images/Main_Logo.webp" alt="Logo" class="logo">
+            <span class="site-name">Quiz Games</span>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search">
+            <button class="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        <div class="right-side-header">
+            <button class="icon-btn"><i class="fas fa-users"></i></button>
+            <button class="icon-btn"><i class="fas fa-heart"></i></button>
+            <button class="login-btn" onclick="openPopup()">Login</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="quiz-container">
+            <h2>Create a New Quiz</h2>
+            <div id="quiz-info">
+                <label for="quiz-name">Quiz Name:</label>
+                <input type="text" id="quiz-name" placeholder="Enter quiz name" required>
+
+                <label for="quiz-description">Description:</label>
+                <textarea id="quiz-description" placeholder="Enter quiz description" required></textarea>
+
+                <label for="quiz-category">Category:</label>
+                <input type="text" id="quiz-category" placeholder="Enter quiz category" required>
+
+                <label for="quiz-difficulty">Difficulty:</label>
+                <select id="quiz-difficulty">
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+            </div>
+
+            <div id="question-section">
+                <h3>Question <span id="question-number">1</span></h3>
+
+                <label for="select-question">Select Question:</label>
+                <div id="questions-options">
+                    <select id="select-question" onchange="jumpToQuestion()">
+                        <option value="new" selected>Creating New Question</option>
+                    </select>
+                    <button id="remove-question" onclick="deleteQuestion()" disabled>Delete Question</button>
+                </div>
+
+
+                <label for="question-type">Select Question Type:</label>
+                <select id="question-type" onchange="updateQuestionType()">
+                    <option value="mcq">Multiple Choice (MCQ)</option>
+                    <option value="truefalse">True / False</option>
+                </select>
+
+                <label for="question-text">Enter Question:</label>
+                <input type="text" id="question-text" placeholder="Type your question" required>
+
+                <div id="mcq-options">
+                    <label>Enter Choices:</label>
+                    <div id="choices-container"></div>
+                    <button id="add-choice" onclick="addChoice()">+ Add Choice</button>
+                </div>
+
+                <label for="correct-mcq-answer">Correct Answer:</label>
+                <select id="correct-mcq-answer"></select>
+
+                <label for="question-mark">Question Marks:</label>
+                <input type="number" id="question-mark" placeholder="Enter marks" min="1" required>
+
+                <div class="button-container">
+                    <button onclick="saveQuestion()">Save & Next</button>
+                    <button id="finish-btn" onclick="finishQuiz()" disabled>Finish Quiz</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Quiz Games. All Rights Reserved.</p>
+    </footer>
+
+    <script src="scripts/quiz.js" defer></script>
+</body>
+
+</html>
