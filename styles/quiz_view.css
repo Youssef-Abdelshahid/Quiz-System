@@ -1,0 +1,116 @@
+/* Ensure the body takes full height and uses flexbox for layout */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove default margin */
+    background-color: #121212; /* Dark background for the entire page */
+    color: #ffffff; /* Default text color */
+}
+
+/* Navbar styles */
+header {
+    background-color: #1e1e1e;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Main content area */
+main {
+    flex: 1; /* Takes up remaining space between header and footer */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Footer styles */
+footer {
+    background-color: #1e1e1e;
+    padding: 10px 20px;
+    text-align: center;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Quiz page styles */
+#quiz-page {
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%; /* Take up full height of the main element */
+}
+
+/* Quiz container styles */
+#quiz-container {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+    width: 400px;
+    text-align: center;
+}
+
+/* Question text styles */
+#question-text {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+/* Options container styles */
+#options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Radio button and label styles */
+#options-container .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#options-container input[type="radio"] {
+    margin: 0;
+}
+
+#options-container label {
+    cursor: pointer;
+}
+
+/* Navigation buttons styles */
+#navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+#navigation-buttons button {
+    font-size: 18px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    background-color: #6200ea;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#navigation-buttons button:hover {
+    background-color: #3700b3;
+}
+
+#finish-button {
+    background-color: #28a745;
+}
+
+#finish-button:hover {
+    background-color: #218838;
+}
+
+/* Score container styles */
+#score-container {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
