@@ -170,7 +170,7 @@ function openProfilePopup() {
 }
 
 function createQuiz() {
-    window.location.href = "quiz.html"; 
+    window.location.href = "create_quiz.html";
 }
 
 function redirectToHome() {
