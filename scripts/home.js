@@ -157,15 +157,24 @@ function openProfilePopup() {
     document.getElementById("popup-overlay").style.display = "flex";
     disableScroll();
 
-    document.getElementById("popup-title").innerText = userRole === "Admin" ? "Admin Profile" : "User Profile";
-    document.getElementById("popup-content").innerHTML = `
+    let profileContent = `
         <h2>Welcome, ${userName}</h2>
         <p>Email: ${userEmail}</p>
         <p>Role: ${userRole}</p>
+        <button class="btn-submit create-quiz-btn" onclick="createQuiz()">Create Quiz</button>
         <button class="btn-submit" onclick="logout()">Logout</button>
     `;
+
+    document.getElementById("popup-content").innerHTML = profileContent;
 }
 
+function createQuiz() {
+    window.location.href = "quiz.html"; 
+}
+
+function redirectToHome() {
+    window.location.href = "index.html";
+}
 
 function logout() {
     localStorage.removeItem("loggedInUserEmail");

@@ -15,8 +15,8 @@
             <button class="menu-btn">
                 <i class="fas fa-bars"></i>
             </button>
-            <img src="images\Main_Logo.webp" alt="Logo" class="logo">
-            <span class="site-name">Quiz Games</span>
+            <img src="images\Main_Logo.webp" alt="Logo" class="logo" onclick="redirectToHome()">
+            <span class="site-name" onclick="redirectToHome()">Quiz Games</span>
         </div>
 
         <div class="search-bar">
@@ -152,6 +152,8 @@
                 <button class="btn-submit" onclick="signup()">Sign Up</button>
                 <a href="#" onclick="toggleForm('login')">Already have an account? Log In</a>
             </div>
+
+            <div id="profile-actions"></div>
         </div>
     </div>
     <div id="popup-overlay"></div>
