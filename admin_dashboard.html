@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="C:\xampp\htdocs\Quiz-System\styles\admin_dashboard.css">
+        <link rel="stylesheet" href="styles\admin_dashboard.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
@@ -13,12 +14,12 @@
     <aside class="sidebar">
         <h2 class="logo">Quiz Admin</h2>
         <ul class="menu">
-            <li class="active"><i class="fa-solid fa-chart-line"></i> Dashboard</li>
-            <li><i class="fa-solid fa-question-circle"></i> Quizzes</li>
+            <li id="dashboardMenu" class="active"><i class="fa-solid fa-chart-line"></i> Dashboard</li>
+            <li id="quizzesMenu"><i class="fa-solid fa-question-circle"></i> Quizzes</li>
             <li><i class="fa-solid fa-users"></i> Users</li>
             <li><i class="fa-solid fa-chart-pie"></i> Analytics</li>
             <li><i class="fa-solid fa-gear"></i> Settings</li>
-            <li class="logout" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+            <li class="logout" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i>Logout</li>
         </ul>
     </aside>
 
@@ -27,49 +28,52 @@
         <header>
             <h1>Dashboard</h1>
         </header>
-
-        <!-- Stats Cards -->
-        <section class="stats">
-            <div class="card light-green">
-                <i class="fa-solid fa-check"></i>
-                <h3>450</h3>
-                <p>Quizzes Completed</p>
-            </div>
-            <div class="card yellow">
-                <i class="fa-solid fa-clipboard-question"></i>
-                <h3>120</h3>
-                <p>Active Quizzes</p>
-            </div>
-            <div class="card blue">
-                <i class="fa-solid fa-users"></i>
-                <h3>780</h3>
-                <p>Users Registered</p>
-            </div>
-            <div class="card gray">
-                <i class="fa-solid fa-trophy"></i>
-                <h3>30</h3>
-                <p>Top Scorers</p>
-            </div>
-        </section>
-
-        <!-- Charts and Todo List -->
-        <section class="dashboard-content">
-            <div class="chart-box">
-                <h2>Performance Overview</h2>
-                <canvas id="quizChart"></canvas>
-            </div>
-            <div class="todo-box">
-                <h2>Todo List</h2>
-                <ul id="todo-list">
-                    <li>Review user feedback</li>
-                    <li>Update quiz database</li>
-                    <li>Optimize performance</li>
-                </ul>
-            </div>
-        </section>
+    
+        <div id="mainContent">
+            <!-- Default Content (Stats and charts) -->
+            <section class="stats">
+                <div class="card light-green">
+                    <i class="fa-solid fa-check"></i>
+                    <h3>450</h3>
+                    <p>Quizzes Completed</p>
+                </div>
+                <div class="card yellow">
+                    <i class="fa-solid fa-clipboard-question"></i>
+                    <h3>120</h3>
+                    <p>Active Quizzes</p>
+                </div>
+                <div class="card blue">
+                    <i class="fa-solid fa-users"></i>
+                    <h3>780</h3>
+                    <p>Users Registered</p>
+                </div>
+                <div class="card gray">
+                    <i class="fa-solid fa-trophy"></i>
+                    <h3>30</h3>
+                    <p>Top Scorers</p>
+                </div>
+            </section>
+    
+            <!-- Performance Overview and Todo List -->
+            <section class="dashboard-content">
+                <div class="chart-box">
+                    <h2>Performance Overview</h2>
+                    <canvas id="quizChart"></canvas>
+                </div>
+                <div class="todo-box">
+                    <h2>Todo List</h2>
+                    <ul id="todo-list">
+                        <li>Review user feedback</li>
+                        <li>Update quiz database</li>
+                        <li>Optimize performance</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
     </main>
-
-    <script src="C:\xampp\htdocs\Quiz-System\scripts\admin_dashboard.js"></script>
+    
+    <script src="scripts/admin_dashboard.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
 </body>
 </html>
