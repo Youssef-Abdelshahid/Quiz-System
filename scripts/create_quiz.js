@@ -1,4 +1,5 @@
 let quizData = {
+    id: null,
     name: "",
     description: "",
     category: "",
@@ -8,6 +9,7 @@ let quizData = {
 
 let mockQuizData = [
     {
+        "id": 1,
         "name": "Basic Science Quiz",
         "description": "This quiz tests general scientific knowledge.",
         "category": "Science",
@@ -50,6 +52,7 @@ let mockQuizData = [
             }
         ]
     }, {
+        "id": 2,
         "name": "World History Quiz",
         "description": "This quiz covers important historical events and figures.",
         "category": "History",
@@ -92,6 +95,7 @@ let mockQuizData = [
             }
         ]
     }, {
+        "id": 3,
         "name": "Basic Mathematics Quiz",
         "description": "This quiz tests fundamental math concepts.",
         "category": "Mathematics",
@@ -365,7 +369,7 @@ function updateQuestionDropdown() {
     const select = document.getElementById('select-question');
     const deleteButton = document.getElementById('remove-question');
 
-    const previousSelection = select.value; 
+    const previousSelection = select.value;
     select.innerHTML = '';
 
     const newQuestionOption = document.createElement('option');
@@ -455,9 +459,24 @@ function deleteQuestion() {
         updateQuestionDropdown();
         resetQuestionForm();
     }
-    if(quizData.questions.length === 0){
+    if (quizData.questions.length === 0) {
         document.querySelector("button[onclick='finishQuiz()']").disabled = true;
     }
+}
+
+function getNextQuizId() {
+    if (mockQuizData.length === 0) {
+        return 1;
+    }
+    const existingIds = mockQuizData.map(quiz => quiz.id).sort((a, b) => a - b);
+    let nextId = 1;
+    for (const id of existingIds) {
+        if (nextId < id) {
+            return nextId;
+        }
+        nextId = id + 1;
+    }
+    return nextId;
 }
 
 function finishQuiz() {
@@ -481,15 +500,25 @@ function finishQuiz() {
         return;
     }
 
-    mockQuizData.push({ ...quizData });
+    const newQuizId = getNextQuizId();
+    const newQuiz = {
+        id: newQuizId,
+        name: quizName,
+        description: quizDescription,
+        category: quizCategory,
+        difficulty: quizDifficulty,
+        questions: [...quizData.questions]
+    };
 
-    quizData = { name: "", description: "", category: "", difficulty: "", questions: [] };
+    mockQuizData.push(newQuiz);
+
+    quizData = { id: null, name: "", description: "", category: "", difficulty: "", questions: [] };
 
     quizNameInput.value = "";
     quizDescriptionInput.value = "";
     quizCategoryInput.value = "";
     quizDifficultyInput.value = "Easy";
 
-    alert('Quiz saved successfully!');
+    alert('Quiz saved successfully with ID: ' + newQuizId + '!');
     window.location.href = "index.html";
 }

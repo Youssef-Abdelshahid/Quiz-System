@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game - Edit Quiz</title>
+    <link rel="stylesheet" href="styles/admin_page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <h2 class="logo">Quiz Admin</h2>
+        <ul class="menu">
+            <li id="dashboardMenu" class="active"><i class="fa-solid fa-chart-line"></i> Dashboard</li>
+            <li id="quizzesMenu"><i class="fa-solid fa-question-circle"></i> Quizzes</li>
+            <li id="usersMenu"><i class="fa-solid fa-users"></i> Users</li>
+            <li><i class="fa-solid fa-chart-pie"></i> Analytics</li>
+            <li><i class="fa-solid fa-gear"></i> Settings</li>
+            <li class="logout" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i>Logout</li>
+        </ul>
+    </aside>
+
+    <main class="content">
+        <header>
+            <h1>Dashboard</h1>
+        </header>
+
+        <div id="mainContent">
+            <section class="stats">
+                <div class="card light-green">
+                    <i class="fa-solid fa-check"></i>
+                    <h3>450</h3>
+                    <p>Quizzes Completed</p>
+                </div>
+                <div class="card yellow">
+                    <i class="fa-solid fa-clipboard-question"></i>
+                    <h3>120</h3>
+                    <p>Active Quizzes</p>
+                </div>
+                <div class="card blue">
+                    <i class="fa-solid fa-users"></i>
+                    <h3>780</h3>
+                    <p>Users Registered</p>
+                </div>
+                <div class="card gray">
+                    <i class="fa-solid fa-trophy"></i>
+                    <h3>30</h3>
+                    <p>Top Scorers</p>
+                </div>
+            </section>
+
+            <section class="dashboard-content">
+                <div class="chart-box">
+                    <h2>Performance Overview</h2>
+                    <canvas id="quizChart"></canvas>
+                </div>
+                <div class="todo-box">
+                    <h2>Todo List</h2>
+                    <ul id="todo-list">
+                        <li>Review user feedback</li>
+                        <li>Update quiz database</li>
+                        <li>Optimize performance</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <div class="edit-quiz-container">
+            <div id="quiz-info">
+                <h3 for="select-quiz-to-edit" id="select-quiz-label">Select Quiz to Edit</h3>
+
+                <label for="quiz-name">Quiz Name:</label>
+                <input type="text" id="quiz-name" placeholder="Enter quiz name" required>
+
+                <label for="quiz-description">Description:</label>
+                <textarea id="quiz-description" placeholder="Enter quiz description" required></textarea>
+
+                <label for="quiz-category">Category:</label>
+                <input type="text" id="quiz-category" placeholder="Enter quiz category" required>
+
+                <label for="quiz-difficulty">Difficulty:</label>
+                <select id="quiz-difficulty">
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+            </div>
+
+            <div id="question-section">
+                <h3>Question <span id="question-number">1</span></h3>
+
+                <label for="select-question">Select Question:</label>
+                <div id="questions-options">
+                    <select id="select-question">
+                        <option value="">-- Add New Question --</option>
+                    </select>
+                    <button id="remove-question" disabled>Delete</button>
+                </div>
+
+
+                <label for="question-type">Select Question Type:</label>
+                <select id="question-type">
+                    <option value="mcq">Multiple Choice (MCQ)</option>
+                    <option value="truefalse">True / False</option>
+                </select>
+
+                <label for="question-text">Enter Question:</label>
+                <input type="text" id="question-text" placeholder="Type your question" required>
+
+                <div id="mcq-options">
+                    <label>Enter Choices:</label>
+                    <div id="choices-container">
+                    </div>
+                    <button id="add-choice">+ Add Choice</button>
+                </div>
+
+                <label for="correct-mcq-answer">Correct Answer:</label>
+                <select id="correct-mcq-answer">
+                </select>
+
+                <label for="question-mark">Question Marks:</label>
+                <input type="number" id="question-mark" placeholder="Enter marks" min="1" required>
+
+                <div class="button-container">
+                    <button id="save-question-btn">Save Question</button>
+                    <button id="finish-btn" disabled>Finish Quiz</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="create-quiz-container">
+            <div id="quiz-info">
+                <label for="quiz-name">Quiz Name:</label>
+                <input type="text" id="quiz-name" placeholder="Enter quiz name" required>
+
+                <label for="quiz-description">Description:</label>
+                <textarea id="quiz-description" placeholder="Enter quiz description" required></textarea>
+
+                <label for="quiz-category">Category:</label>
+                <input type="text" id="quiz-category" placeholder="Enter quiz category" required>
+
+                <label for="quiz-difficulty">Difficulty:</label>
+                <select id="quiz-difficulty">
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+            </div>
+
+            <div id="question-section">
+                <h3>Question <span id="question-number">1</span></h3>
+
+                <label for="select-question">Select Question:</label>
+                <div id="questions-options">
+                    <select id="select-question" onchange="jumpToQuestion()">
+                        <option value="new" selected>Creating New Question</option>
+                    </select>
+                    <button id="remove-question" onclick="deleteQuestion()" disabled>Delete</button>
+                </div>
+
+
+                <label for="question-type">Select Question Type:</label>
+                <select id="question-type" onchange="updateQuestionType()">
+                    <option value="mcq">Multiple Choice (MCQ)</option>
+                    <option value="truefalse">True / False</option>
+                </select>
+
+                <label for="question-text">Enter Question:</label>
+                <input type="text" id="question-text" placeholder="Type your question" required>
+
+                <div id="mcq-options">
+                    <label>Enter Choices:</label>
+                    <div id="choices-container"></div>
+                    <button id="add-choice" onclick="addChoice()">+ Add Choice</button>
+                </div>
+
+                <label for="correct-mcq-answer">Correct Answer:</label>
+                <select id="correct-mcq-answer"></select>
+
+                <label for="question-mark">Question Marks:</label>
+                <input type="number" id="question-mark" placeholder="Enter marks" min="1" required>
+
+                <div class="button-container">
+                    <button onclick="saveQuestion()">Save & Next</button>
+                    <button id="finish-btn" onclick="finishQuiz()" disabled>Finish Quiz</button>
+                </div>
+            </div>
+        </div> -->
+
+    </main>
+
+    <script src="scripts/admin_page.js"></script>
+    <script src="scripts/create_quiz.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</body>
+
+</html>

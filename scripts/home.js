@@ -73,7 +73,7 @@ function login() {
         localStorage.setItem("loggedInUserEmail", adminEmail);
         localStorage.setItem("loggedInUserName", "Admin");
         localStorage.setItem("loggedInUserRole", "Admin");
-        window.location.href = "admin_dashboard.html";
+        window.location.href = "admin_page.html";
         updateUserInterface();
         closePopup();
     } else if (email === userEmail && password === userPassword) {
@@ -181,5 +181,5 @@ function logout() {
     localStorage.removeItem("loggedInUserEmail");
     localStorage.removeItem("loggedInUserName");
     localStorage.removeItem("loggedInUserRole");
-    location.reload(); 
+    location.reload();
 }
