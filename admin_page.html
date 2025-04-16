@@ -69,69 +69,68 @@
         </div>
 
         <div class="edit-quiz-container">
-            <div id="quiz-info">
-                <h3 for="select-quiz-to-edit" id="select-quiz-label">Select Quiz to Edit</h3>
+            <div id="edit-quiz-info">
+                <h3 for="select-quiz-to-edit" id="edit-select-quiz-label">Select Quiz to Edit</h3>
 
-                <label for="quiz-name">Quiz Name:</label>
-                <input type="text" id="quiz-name" placeholder="Enter quiz name" required>
+                <label for="edit-quiz-name">Quiz Name:</label>
+                <input type="text" id="edit-quiz-name" placeholder="Enter quiz name" required>
 
-                <label for="quiz-description">Description:</label>
-                <textarea id="quiz-description" placeholder="Enter quiz description" required></textarea>
+                <label for="edit-quiz-description">Description:</label>
+                <textarea id="edit-quiz-description" placeholder="Enter quiz description" required></textarea>
 
-                <label for="quiz-category">Category:</label>
-                <input type="text" id="quiz-category" placeholder="Enter quiz category" required>
+                <label for="edit-quiz-category">Category:</label>
+                <input type="text" id="edit-quiz-category" placeholder="Enter quiz category" required>
 
-                <label for="quiz-difficulty">Difficulty:</label>
-                <select id="quiz-difficulty">
+                <label for="edit-quiz-difficulty">Difficulty:</label>
+                <select id="edit-quiz-difficulty">
                     <option value="Easy">Easy</option>
                     <option value="Medium">Medium</option>
                     <option value="Hard">Hard</option>
                 </select>
             </div>
 
-            <div id="question-section">
-                <h3>Question <span id="question-number">1</span></h3>
+            <div id="edit-question-section">
+                <h3>Question <span id="edit-question-number">1</span></h3>
 
-                <label for="select-question">Select Question:</label>
-                <div id="questions-options">
-                    <select id="select-question">
+                <label for="edit-select-question">Select Question:</label>
+                <div id="edit-questions-options">
+                    <select id="edit-select-question">
                         <option value="">-- Add New Question --</option>
                     </select>
-                    <button id="remove-question" disabled>Delete</button>
+                    <button id="edit-remove-question" disabled>Delete</button>
                 </div>
 
 
-                <label for="question-type">Select Question Type:</label>
-                <select id="question-type">
+                <label for="edit-question-type">Select Question Type:</label>
+                <select id="edit-question-type">
                     <option value="mcq">Multiple Choice (MCQ)</option>
                     <option value="truefalse">True / False</option>
                 </select>
 
-                <label for="question-text">Enter Question:</label>
-                <input type="text" id="question-text" placeholder="Type your question" required>
+                <label for="edit-question-text">Enter Question:</label>
+                <input type="text" id="edit-question-text" placeholder="Type your question" required>
 
-                <div id="mcq-options">
+                <div id="edit-mcq-options">
                     <label>Enter Choices:</label>
-                    <div id="choices-container">
-                    </div>
-                    <button id="add-choice">+ Add Choice</button>
+                    <div id="edit-choices-container"></div>
+                    <button id="edit-add-choice">+ Add Choice</button>
                 </div>
 
-                <label for="correct-mcq-answer">Correct Answer:</label>
-                <select id="correct-mcq-answer">
+                <label for="edit-correct-mcq-answer">Correct Answer:</label>
+                <select id="edit-correct-mcq-answer">
                 </select>
 
-                <label for="question-mark">Question Marks:</label>
-                <input type="number" id="question-mark" placeholder="Enter marks" min="1" required>
+                <label for="edit-question-mark">Question Marks:</label>
+                <input type="number" id="edit-question-mark" placeholder="Enter marks" min="1" required>
 
-                <div class="button-container">
-                    <button id="save-question-btn">Save Question</button>
-                    <button id="finish-btn" disabled>Finish Quiz</button>
+                <div class="edit-button-container">
+                    <button id="edit-save-question-btn">Save Question</button>
+                    <button id="edit-finish-btn" disabled>Finish Quiz</button>
                 </div>
             </div>
         </div>
 
-        <!-- <div class="create-quiz-container">
+       <div class="create-quiz-container">
             <div id="quiz-info">
                 <label for="quiz-name">Quiz Name:</label>
                 <input type="text" id="quiz-name" placeholder="Enter quiz name" required>
@@ -188,7 +187,7 @@
                     <button id="finish-btn" onclick="finishQuiz()" disabled>Finish Quiz</button>
                 </div>
             </div>
-        </div> -->
+        </div> 
 
     </main>
 

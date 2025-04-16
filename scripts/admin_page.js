@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let chartInstance;
     const mainContent = document.getElementById("mainContent");
     const editQuizContainer = document.querySelector(".edit-quiz-container");
-    const questionSection = document.getElementById("question-section");
+    const createQuizContainer = document.querySelector(".create-quiz-container");
 
     function createChart() {
         const ctx = document.getElementById("quizChart").getContext("2d");
@@ -33,9 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
-                <a href="create_quiz.html">
-                    <button class="create-quiz-btn">Create Quiz</button>
-                </a>
+                <button id="openCreateQuizBtn" class="create-quiz-btn">Create Quiz</button>
             </div>
             <table class="quiz-table">
                 <thead>
@@ -64,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </table>
         `;
         attachQuizListListeners();
+        document.getElementById("openCreateQuizBtn").addEventListener("click", openCreateQuizContainer);
     }
 
     function attachQuizListListeners() {
@@ -92,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function openEditQuizContainer(quizId) {
         mainContent.style.display = "none";
+        createQuizContainer.style.display = "none";
         editQuizContainer.style.display = "flex";
         document.querySelector("header h1").textContent = "Edit Quiz";
 
@@ -113,6 +113,49 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    function openCreateQuizContainer() {
+        mainContent.style.display = "none";
+        editQuizContainer.style.display = "none";
+        createQuizContainer.style.display = "flex";
+        document.querySelector("header h1").textContent = "Create New Quiz";
+        resetCreateQuizForm(); 
+    }
+
+    function resetCreateQuizForm() {
+        const quizNameInput = createQuizContainer.querySelector("#quiz-name");
+        const quizDescriptionTextarea = createQuizContainer.querySelector("#quiz-description");
+        const quizCategoryInput = createQuizContainer.querySelector("#quiz-category");
+        const quizDifficultySelect = createQuizContainer.querySelector("#quiz-difficulty");
+
+        if (quizNameInput) quizNameInput.value = "";
+        if (quizDescriptionTextarea) quizDescriptionTextarea.value = "";
+        if (quizCategoryInput) quizCategoryInput.value = "";
+        if (quizDifficultySelect) quizDifficultySelect.value = "Easy"; 
+        const questionNumberSpan = createQuizContainer.querySelector("#question-number");
+        const selectQuestionDropdown = createQuizContainer.querySelector("#select-question");
+        const removeQuestionButton = createQuizContainer.querySelector("#remove-question");
+        const questionTypeSelect = createQuizContainer.querySelector("#question-type");
+        const questionTextInput = createQuizContainer.querySelector("#question-text");
+        const mcqOptionsDiv = createQuizContainer.querySelector("#mcq-options");
+        const choicesContainerDiv = createQuizContainer.querySelector("#edit-choices-container");
+        const correctMcqAnswerSelect = createQuizContainer.querySelector("#correct-mcq-answer");
+        const questionMarkInput = createQuizContainer.querySelector("#question-mark");
+        const finishButton = createQuizContainer.querySelector("#finish-btn");
+
+        if (questionNumberSpan) questionNumberSpan.textContent = "1";
+        if (selectQuestionDropdown) {
+            selectQuestionDropdown.innerHTML = '<option value="new" selected>Creating New Question</option>';
+        }
+        if (removeQuestionButton) removeQuestionButton.disabled = true;
+        if (questionTypeSelect) questionTypeSelect.value = "mcq";
+        if (questionTextInput) questionTextInput.value = "";
+        if (mcqOptionsDiv) mcqOptionsDiv.style.display = "block";
+        if (choicesContainerDiv) choicesContainerDiv.innerHTML = "";
+        if (correctMcqAnswerSelect) correctMcqAnswerSelect.innerHTML = "";
+        if (questionMarkInput) questionMarkInput.value = "";
+        if (finishButton) finishButton.disabled = true;
+    }
+
     function populateEditQuizForm(quizId) {
         const selectedQuiz = mockQuizData.find(quiz => quiz.id === quizId);
         if (selectedQuiz) {
@@ -120,7 +163,6 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("quiz-description").value = selectedQuiz.description || "";
             document.getElementById("quiz-category").value = selectedQuiz.category;
             document.getElementById("quiz-difficulty").value = selectedQuiz.difficulty;
-            questionSection.style.display = "block";
 
             const quizSelect = document.getElementById("select-quiz-to-edit");
             if (quizSelect) {
@@ -147,6 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector("header h1").textContent = "Dashboard";
         mainContent.style.display = "block";
         editQuizContainer.style.display = "none";
+        createQuizContainer.style.display = "none";
         mainContent.innerHTML = `
             <section class="stats">
                 <div class="card light-green">
@@ -195,6 +238,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector("header h1").textContent = "Dashboard";
         mainContent.style.display = "block";
         editQuizContainer.style.display = "none";
+        createQuizContainer.style.display = "none";
         showDashboard();
     });
 
@@ -204,6 +248,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector("header h1").textContent = "Quizzes";
         mainContent.style.display = "block";
         editQuizContainer.style.display = "none";
+        createQuizContainer.style.display = "none";
         renderQuizList();
     });
 
@@ -213,6 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector("header h1").textContent = "Users";
         mainContent.style.display = "block";
         editQuizContainer.style.display = "none";
+        createQuizContainer.style.display = "none";
         mainContent.innerHTML = `
             <div class="user-header">
                 <div class="search-bar">
@@ -260,20 +306,20 @@ document.addEventListener("DOMContentLoaded", function () {
         function attachEditAndDeleteListeners(context) {
             const editButtons = document.querySelectorAll(".edit-btn");
             const deleteButtons = document.querySelectorAll(".delete-btn");
-    
+
             deleteButtons.forEach((btn) => {
                 btn.addEventListener("click", function () {
                     const row = this.closest("tr");
                     row.remove();
                 });
             });
-    
+
             editButtons.forEach((btn) => {
                 btn.addEventListener("click", function () {
                     const row = this.closest("tr");
                     const cells = row.querySelectorAll("td");
                     const editableIndices = context === "quizzes" ? [0, 1, 2] : [0, 1, 2];
-                
+
                     editableIndices.forEach((i) => {
                         const originalValue = cells[i].textContent.trim();
                         const input = document.createElement("input");
@@ -285,79 +331,79 @@ document.addEventListener("DOMContentLoaded", function () {
                         cells[i].innerHTML = "";
                         cells[i].appendChild(input);
                     });
-                
+
                     const actionsCell = cells[cells.length - 1];
                     actionsCell.innerHTML = "";
-                
+
                     const okButton = document.createElement("button");
                     okButton.textContent = "OK";
                     okButton.className = "ok-btn";
-                
+
                     const cancelButton = document.createElement("button");
                     cancelButton.textContent = "Cancel";
                     cancelButton.className = "cancel-btn";
                     cancelButton.style.marginLeft = "10px";
-                
+
                     actionsCell.appendChild(okButton);
                     actionsCell.appendChild(cancelButton);
-                
+
                     okButton.addEventListener("click", () => {
                         const inputs = editableIndices.map(i => cells[i].querySelector("input"));
                         const name = inputs[0].value.trim();
                         const email = inputs[1].value.trim();
                         const password = inputs[2].value.trim();
-            
+
                         // Validate inputs
                         if (!name) {
                             alert("Name cannot be empty");
                             return;
                         }
-            
+
                         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                         if (!emailRegex.test(email)) {
                             alert("Please enter a valid email address");
                             return;
                         }
-            
+
                         if (password.length < 6) {
                             alert("Password must be at least 6 characters long");
                             return;
                         }
-            
+
                         // If validation passes, update the row
                         editableIndices.forEach((i, index) => {
                             const input = inputs[index];
                             cells[i].textContent = input.value;
                         });
-            
+
                         actionsCell.innerHTML = `
                             <button class="edit-btn">Edit</button>
                             <button class="delete-btn">Delete</button>
                         `;
-                
+
                         attachEditAndDeleteListeners(context);
                     });
-                
+
                     cancelButton.addEventListener("click", () => {
                         editableIndices.forEach((i) => {
                             const input = cells[i].querySelector("input");
                             cells[i].textContent = input.getAttribute("data-original");
                         });
-                
+
                         actionsCell.innerHTML = `
                             <button class="edit-btn">Edit</button>
                             <button class="delete-btn">Delete</button>
                         `;
-                
+
                         attachEditAndDeleteListeners(context);
                     });
                 });
             });
         }
-    
+
         document.getElementById("addUserBtn").addEventListener("click", function () {
             const tbody = document.querySelector(".user-table tbody");
-        
+
             const newRow = document.createElement("tr");
             newRow.innerHTML = `
                 <td><input type="text" class="edit-input" placeholder="Name" style="width: 90%"></td>
@@ -369,46 +415,46 @@ document.addEventListener("DOMContentLoaded", function () {
                 </td>
             `;
             tbody.appendChild(newRow);
-        
+
             const okBtn = newRow.querySelector(".ok-btn");
             const cancelBtn = newRow.querySelector(".cancel-btn");
-        
+
             okBtn.addEventListener("click", () => {
                 const inputs = newRow.querySelectorAll("input");
                 const name = inputs[0].value.trim();
                 const email = inputs[1].value.trim();
                 const password = inputs[2].value.trim();
-        
+
                 if (!name) {
                     alert("Name cannot be empty");
                     return;
                 }
-        
+
                 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                 if (!emailRegex.test(email)) {
                     alert("Please enter a valid email address");
                     return;
                 }
-        
+
                 if (password.length < 6) {
                     alert("Password must be at least 6 characters long");
                     return;
                 }
-        
+
                 inputs.forEach(input => {
                     const td = input.parentElement;
                     td.textContent = input.value;
                 });
-        
+
                 const actionsCell = newRow.querySelector("td:last-child");
                 actionsCell.innerHTML = `
                     <button class="edit-btn">Edit</button>
                     <button class="delete-btn">Delete</button>
                 `;
-        
+
                 attachEditAndDeleteListeners("users");
             });
-        
+
             cancelBtn.addEventListener("click", () => {
                 newRow.remove();
             });
@@ -417,20 +463,19 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("userSearchInput").addEventListener("input", function () {
             const filter = this.value.toLowerCase();
             const rows = document.querySelectorAll(".user-table tbody tr");
-        
+
             rows.forEach(row => {
                 const name = row.cells[0].textContent.toLowerCase();
                 const email = row.cells[1].textContent.toLowerCase();
-        
+
                 if (name.includes(filter) || email.includes(filter)) {
                     row.style.display = "";
                 } else {
-                    row.style.display = "none"; 
+                    row.style.display = "none";
                 }
             });
         });
     });
-
 
     document.getElementById("logoutBtn").addEventListener("click", function () {
         localStorage.removeItem("loggedInUserEmail");
@@ -444,30 +489,31 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    const quizNameInput = document.getElementById('quiz-name');
-    const quizDescriptionInput = document.getElementById('quiz-description');
-    const quizCategoryInput = document.getElementById('quiz-category');
-    const quizDifficultyInput = document.getElementById('quiz-difficulty');
-    const questionSection = document.getElementById('question-section');
-    const selectQuestionDropdown = document.getElementById('select-question');
-    const removeQuestionButton = document.getElementById('remove-question');
-    const questionTypeDropdown = document.getElementById('question-type');
-    const questionTextInput = document.getElementById('question-text');
-    const mcqOptionsDiv = document.getElementById('mcq-options');
-    const choicesContainer = document.getElementById('choices-container');
-    const addChoiceButton = document.getElementById('add-choice');
-    const correctAnswerSelect = document.getElementById('correct-mcq-answer');
-    const questionMarkInput = document.getElementById('question-mark');
-    const saveQuestionButton = document.getElementById('save-question-btn');
-    const finishButton = document.getElementById('finish-btn');
-    const questionNumberDisplay = document.getElementById('question-number');
-    const quizInfoDiv = document.getElementById('quiz-info');
-    const selectQuizLabel = document.getElementById('select-quiz-label');
+    const quizNameInput = document.getElementById('edit-quiz-name');
+    const quizDescriptionInput = document.getElementById('edit-quiz-description');
+    const quizCategoryInput = document.getElementById('edit-quiz-category');
+    const quizDifficultyInput = document.getElementById('edit-quiz-difficulty');
+    const questionSection = document.getElementById('edit-question-section');
+    const selectQuestionDropdown = document.getElementById('edit-select-question');
+    const removeQuestionButton = document.getElementById('edit-remove-question');
+    const questionTypeDropdown = document.getElementById('edit-question-type');
+    const questionTextInput = document.getElementById('edit-question-text');
+    const mcqOptionsDiv = document.getElementById('edit-mcq-options');
+    const choicesContainer = document.getElementById('edit-choices-container');
+    const addChoiceButton = document.getElementById('edit-add-choice');
+    const correctAnswerSelect = document.getElementById('edit-correct-mcq-answer');
+    const questionMarkInput = document.getElementById('edit-question-mark');
+    const saveQuestionButton = document.getElementById('edit-save-question-btn');
+    const finishButton = document.getElementById('edit-finish-btn');
+    const questionNumberDisplay = document.getElementById('edit-question-number');
+    const quizInfoDiv = document.getElementById('edit-quiz-info');
+    const selectQuizLabel = document.getElementById('edit-select-quiz-label');
     let quizSelectDropdown;
 
     let currentQuizIndex = null;
     let currentQuestionIndex = null;
     let editingQuiz = null;
+    let hasChanges = false; 
 
     function populateQuizDropdown() {
         if (quizSelectDropdown) {
@@ -498,6 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
             editingQuiz = { ...mockQuizData[selectedIndex] };
             currentQuizIndex = selectedIndex;
             currentQuestionIndex = 0;
+            hasChanges = false;
 
             quizNameInput.value = editingQuiz.name;
             quizDescriptionInput.value = editingQuiz.description || "";
@@ -575,7 +622,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function addChoiceInput(letter, value = '', disabled = false) {
         const choiceWrapper = document.createElement('div');
-        choiceWrapper.classList.add('choice-container');
+        choiceWrapper.classList.add('edit-choice-container');
 
         const choiceLabel = document.createElement('label');
         choiceLabel.textContent = `${letter}:`;
@@ -589,7 +636,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const removeBtn = document.createElement("button");
         removeBtn.textContent = "X";
-        removeBtn.classList.add("remove-choice");
+        removeBtn.classList.add("edit-remove-choice");
         removeBtn.onclick = function () {
             deleteChoice(choiceWrapper);
         };
@@ -608,6 +655,7 @@ document.addEventListener('DOMContentLoaded', () => {
             choicesContainer.removeChild(choiceWrapper);
             updateChoiceLabels();
             updateCorrectAnswerDropdown();
+            hasChanges = true;
         } else if (questionTypeDropdown.value === 'mcq') {
             alert('MCQ must have at least two choices.');
         }
@@ -654,6 +702,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (choiceCount < 7 && questionTypeDropdown.value === 'mcq') {
             addChoiceInput(String.fromCharCode(65 + choiceCount));
             updateCorrectAnswerDropdown();
+            hasChanges = true;
         } else if (questionTypeDropdown.value === 'mcq') {
             alert('You cannot add more than 7 choices.');
         }
@@ -671,11 +720,13 @@ document.addEventListener('DOMContentLoaded', () => {
             editingQuiz.questions.splice(currentQuestionIndex, 1);
             populateQuestionDropdown(editingQuiz.questions);
             loadQuestion(Math.min(currentQuestionIndex, editingQuiz.questions.length - 1));
+            hasChanges = true;
         } else if (editingQuiz && editingQuiz.questions.length === 1) {
             editingQuiz.questions = [];
             populateQuestionDropdown([]);
             resetQuestionForm();
             removeQuestionButton.disabled = true;
+            hasChanges = true;
         } else {
             alert('The quiz must have at least one question.');
         }
@@ -691,6 +742,7 @@ document.addEventListener('DOMContentLoaded', () => {
             addChoiceInput('A');
             addChoiceInput('B');
             updateCorrectAnswerDropdown();
+            hasChanges = true;
         } else if (type === 'truefalse') {
             mcqOptionsDiv.style.display = 'block';
             addChoiceButton.style.display = 'none';
@@ -705,6 +757,7 @@ document.addEventListener('DOMContentLoaded', () => {
             falseOption.textContent = 'B';
             correctAnswerSelect.appendChild(falseOption);
             correctAnswerSelect.value = 'A';
+            hasChanges = true;
         }
     });
 
@@ -759,6 +812,7 @@ document.addEventListener('DOMContentLoaded', () => {
             selectQuestionDropdown.value = 0;
             loadQuestion(0);
         }
+        hasChanges = true;
     });
 
     finishButton.addEventListener('click', () => {
@@ -782,12 +836,17 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        if (currentQuizIndex !== null && currentQuizIndex >= 0 && currentQuizIndex < mockQuizData.length) {
-            mockQuizData[currentQuizIndex] = { ...editingQuiz, name: quizName, description: quizDescription, category: quizCategory, difficulty: quizDifficulty };
-            alert(`Quiz "${quizName}" (ID: ${mockQuizData[currentQuizIndex].id}) updated successfully!`);
-            window.location.href = "index.html";
+        if (hasChanges) {
+            if (currentQuizIndex !== null && currentQuizIndex >= 0 && currentQuizIndex < mockQuizData.length) {
+                mockQuizData[currentQuizIndex] = { ...editingQuiz, name: quizName, description: quizDescription, category: quizCategory, difficulty: quizDifficulty };
+                alert(`Quiz "${quizName}" (ID: ${mockQuizData[currentQuizIndex].id}) Only Saved questions is updated successfully!`);
+                document.getElementById('quizzesMenu').click();
+            } else {
+                alert('Error updating quiz.');
+            }
         } else {
-            alert('Error updating quiz.');
+            alert('No changes have been made to the quiz.');
+            document.getElementById('quizzesMenu').click();
         }
     });
 
@@ -822,8 +881,11 @@ document.addEventListener('DOMContentLoaded', () => {
         editingQuiz = null;
         currentQuizIndex = null;
         currentQuestionIndex = null;
+        hasChanges = false;
     }
 
     populateQuizDropdown();
     resetEditForm();
 });
+
+
