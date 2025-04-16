@@ -216,17 +216,21 @@ document.addEventListener("DOMContentLoaded", function () {
         mainContent.innerHTML = `
             <div class="user-header">
                 <div class="search-bar">
-                    <input type="text" placeholder="Search by name or email">
+                    <input type="text" id="userSearchInput" placeholder="Search by name or email">
                     <button class="search-btn">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
+                <a>
+                    <button id="addUserBtn" class="create-quiz-btn">Add User</button>
+                </a>
             </div>
             <table class="user-table">
                 <thead>
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Password</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -234,6 +238,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <tr>
                         <td>Alice Johnson</td>
                         <td>alice@example.com</td>
+                        <td>alice123</td>
                         <td>
                             <button class="edit-btn">Edit</button>
                             <button class="delete-btn">Delete</button>
@@ -242,6 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <tr>
                         <td>Bob Smith</td>
                         <td>bob@example.com</td>
+                        <td>bob@123</td>
                         <td>
                             <button class="edit-btn">Edit</button>
                             <button class="delete-btn">Delete</button>
@@ -251,82 +257,180 @@ document.addEventListener("DOMContentLoaded", function () {
             </table>
         `;
         attachEditAndDeleteListeners("users");
+        function attachEditAndDeleteListeners(context) {
+            const editButtons = document.querySelectorAll(".edit-btn");
+            const deleteButtons = document.querySelectorAll(".delete-btn");
+    
+            deleteButtons.forEach((btn) => {
+                btn.addEventListener("click", function () {
+                    const row = this.closest("tr");
+                    row.remove();
+                });
+            });
+    
+            editButtons.forEach((btn) => {
+                btn.addEventListener("click", function () {
+                    const row = this.closest("tr");
+                    const cells = row.querySelectorAll("td");
+                    const editableIndices = context === "quizzes" ? [0, 1, 2] : [0, 1, 2];
+                
+                    editableIndices.forEach((i) => {
+                        const originalValue = cells[i].textContent.trim();
+                        const input = document.createElement("input");
+                        input.type = "text";
+                        input.value = originalValue;
+                        input.className = "edit-input";
+                        input.setAttribute("data-original", originalValue);
+                        input.style.width = "90%";
+                        cells[i].innerHTML = "";
+                        cells[i].appendChild(input);
+                    });
+                
+                    const actionsCell = cells[cells.length - 1];
+                    actionsCell.innerHTML = "";
+                
+                    const okButton = document.createElement("button");
+                    okButton.textContent = "OK";
+                    okButton.className = "ok-btn";
+                
+                    const cancelButton = document.createElement("button");
+                    cancelButton.textContent = "Cancel";
+                    cancelButton.className = "cancel-btn";
+                    cancelButton.style.marginLeft = "10px";
+                
+                    actionsCell.appendChild(okButton);
+                    actionsCell.appendChild(cancelButton);
+                
+                    okButton.addEventListener("click", () => {
+                        const inputs = editableIndices.map(i => cells[i].querySelector("input"));
+                        const name = inputs[0].value.trim();
+                        const email = inputs[1].value.trim();
+                        const password = inputs[2].value.trim();
+            
+                        // Validate inputs
+                        if (!name) {
+                            alert("Name cannot be empty");
+                            return;
+                        }
+            
+                        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                        if (!emailRegex.test(email)) {
+                            alert("Please enter a valid email address");
+                            return;
+                        }
+            
+                        if (password.length < 6) {
+                            alert("Password must be at least 6 characters long");
+                            return;
+                        }
+            
+                        // If validation passes, update the row
+                        editableIndices.forEach((i, index) => {
+                            const input = inputs[index];
+                            cells[i].textContent = input.value;
+                        });
+            
+                        actionsCell.innerHTML = `
+                            <button class="edit-btn">Edit</button>
+                            <button class="delete-btn">Delete</button>
+                        `;
+                
+                        attachEditAndDeleteListeners(context);
+                    });
+                
+                    cancelButton.addEventListener("click", () => {
+                        editableIndices.forEach((i) => {
+                            const input = cells[i].querySelector("input");
+                            cells[i].textContent = input.getAttribute("data-original");
+                        });
+                
+                        actionsCell.innerHTML = `
+                            <button class="edit-btn">Edit</button>
+                            <button class="delete-btn">Delete</button>
+                        `;
+                
+                        attachEditAndDeleteListeners(context);
+                    });
+                });
+            });
+        }
+    
+        document.getElementById("addUserBtn").addEventListener("click", function () {
+            const tbody = document.querySelector(".user-table tbody");
+        
+            const newRow = document.createElement("tr");
+            newRow.innerHTML = `
+                <td><input type="text" class="edit-input" placeholder="Name" style="width: 90%"></td>
+                <td><input type="text" class="edit-input" placeholder="Email" style="width: 90%"></td>
+                <td><input type="text" class="edit-input" placeholder="Password" style="width: 90%"></td>
+                <td>
+                    <button class="ok-btn">OK</button>
+                    <button class="cancel-btn" style="margin-left: 10px;">Cancel</button>
+                </td>
+            `;
+            tbody.appendChild(newRow);
+        
+            const okBtn = newRow.querySelector(".ok-btn");
+            const cancelBtn = newRow.querySelector(".cancel-btn");
+        
+            okBtn.addEventListener("click", () => {
+                const inputs = newRow.querySelectorAll("input");
+                const name = inputs[0].value.trim();
+                const email = inputs[1].value.trim();
+                const password = inputs[2].value.trim();
+        
+                if (!name) {
+                    alert("Name cannot be empty");
+                    return;
+                }
+        
+                const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                if (!emailRegex.test(email)) {
+                    alert("Please enter a valid email address");
+                    return;
+                }
+        
+                if (password.length < 6) {
+                    alert("Password must be at least 6 characters long");
+                    return;
+                }
+        
+                inputs.forEach(input => {
+                    const td = input.parentElement;
+                    td.textContent = input.value;
+                });
+        
+                const actionsCell = newRow.querySelector("td:last-child");
+                actionsCell.innerHTML = `
+                    <button class="edit-btn">Edit</button>
+                    <button class="delete-btn">Delete</button>
+                `;
+        
+                attachEditAndDeleteListeners("users");
+            });
+        
+            cancelBtn.addEventListener("click", () => {
+                newRow.remove();
+            });
+        });
+
+        document.getElementById("userSearchInput").addEventListener("input", function () {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll(".user-table tbody tr");
+        
+            rows.forEach(row => {
+                const name = row.cells[0].textContent.toLowerCase();
+                const email = row.cells[1].textContent.toLowerCase();
+        
+                if (name.includes(filter) || email.includes(filter)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none"; 
+                }
+            });
+        });
     });
 
-    function attachEditAndDeleteListeners(context) {
-        const editButtons = document.querySelectorAll(".edit-btn");
-        const deleteButtons = document.querySelectorAll(".delete-btn");
-
-        deleteButtons.forEach((btn) => {
-            btn.addEventListener("click", function () {
-                const row = this.closest("tr");
-                row.remove();
-            });
-        });
-
-        editButtons.forEach((btn) => {
-            btn.addEventListener("click", function () {
-                const row = this.closest("tr");
-                const cells = row.querySelectorAll("td");
-                const editableIndices = context === "quizzes" ? [0, 1, 2] : [0, 1];
-
-                editableIndices.forEach((i) => {
-                    const originalValue = cells[i].textContent.trim();
-                    const input = document.createElement("input");
-                    input.type = "text";
-                    input.value = originalValue;
-                    input.className = "edit-input";
-                    input.setAttribute("data-original", originalValue);
-                    input.style.width = "90%";
-                    cells[i].innerHTML = "";
-                    cells[i].appendChild(input);
-                });
-
-                const actionsCell = cells[cells.length - 1];
-                actionsCell.innerHTML = "";
-
-                const okButton = document.createElement("button");
-                okButton.textContent = "OK";
-                okButton.className = "ok-btn";
-
-                const cancelButton = document.createElement("button");
-                cancelButton.textContent = "Cancel";
-                cancelButton.className = "cancel-btn";
-                cancelButton.style.marginLeft = "10px";
-
-                actionsCell.appendChild(okButton);
-                actionsCell.appendChild(cancelButton);
-
-                okButton.addEventListener("click", () => {
-                    editableIndices.forEach((i) => {
-                        const input = cells[i].querySelector("input");
-                        cells[i].textContent = input.value;
-                    });
-
-                    actionsCell.innerHTML = `
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    `;
-
-                    attachEditAndDeleteListeners(context);
-                });
-
-                cancelButton.addEventListener("click", () => {
-                    editableIndices.forEach((i) => {
-                        const input = cells[i].querySelector("input");
-                        cells[i].textContent = input.getAttribute("data-original");
-                    });
-
-                    actionsCell.innerHTML = `
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    `;
-
-                    attachEditAndDeleteListeners(context);
-                });
-            });
-        });
-    }
 
     document.getElementById("logoutBtn").addEventListener("click", function () {
         localStorage.removeItem("loggedInUserEmail");

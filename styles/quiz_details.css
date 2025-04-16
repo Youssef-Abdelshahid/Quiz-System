@@ -61,3 +61,42 @@ body {
 .play-btn:hover {
     background-color: #3700b3;
 }
+
+.quiz-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.edit-btn {
+    font-size: 18px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    background-color: #03dac5;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.edit-btn:hover {
+    background-color: #00b3a6;
+}
+
+.delete-btn {
+    font-size: 18px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    background-color: #ce5168;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #b00020;
+}
+

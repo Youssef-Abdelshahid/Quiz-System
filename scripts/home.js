@@ -163,6 +163,7 @@ function openProfilePopup() {
         <p>Email: ${userEmail}</p>
         <p>Role: ${userRole}</p>
         <button class="btn-submit create-quiz-btn" onclick="createQuiz()">Create Quiz</button>
+        <button class="btn-submit create-quiz-btn" onclick="quizzesHistory()">History</button>
         <button class="btn-submit" onclick="logout()">Logout</button>
     `;
 
@@ -171,6 +172,10 @@ function openProfilePopup() {
 
 function createQuiz() {
     window.location.href = "create_quiz.html";
+}
+
+function quizzesHistory() {
+    window.location.href = "history.html";
 }
 
 function redirectToHome() {
