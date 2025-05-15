@@ -26,44 +26,63 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function renderQuizList() {
         mainContent.innerHTML = `
-            <div class="quiz-header">
-                <div class="search-bar">
-                    <input type="text" placeholder="Search">
-                    <button class="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-                <button id="openCreateQuizBtn" class="create-quiz-btn">Create Quiz</button>
+        <div class="quiz-header">
+            <div class="search-bar">
+                <input id="quizSearchInput" type="text" placeholder="Search by title, category, or difficulty">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
             </div>
-            <table class="quiz-table">
-                <thead>
-                    <tr>
-                        <th>Quiz Title</th>
-                        <th>Category</th>
-                        <th>Difficulty</th>
-                        <th>Questions No.</th>
-                        <th>Actions</th>
+            <button id="openCreateQuizBtn" class="create-quiz-btn">Create Quiz</button>
+        </div>
+        <table class="quiz-table">
+            <thead>
+                <tr>
+                    <th>Quiz Title</th>
+                    <th>Category</th>
+                    <th>Difficulty</th>
+                    <th>Questions No.</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${mockQuizData.map(quiz => `
+                    <tr data-quiz-id="${quiz.id}">
+                        <td>${quiz.name}</td>
+                        <td>${quiz.category}</td>
+                        <td>${quiz.difficulty}</td>
+                        <td>${quiz.questions ? quiz.questions.length : 0}</td>
+                        <td>
+                            <button class="edit-quiz-btn">Edit</button>
+                            <button class="delete-quiz-btn">Delete</button>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    ${mockQuizData.map(quiz => `
-                        <tr data-quiz-id="${quiz.id}">
-                            <td>${quiz.name}</td>
-                            <td>${quiz.category}</td>
-                            <td>${quiz.difficulty}</td>
-                            <td>${quiz.questions ? quiz.questions.length : 0}</td>
-                            <td>
-                                <button class="edit-quiz-btn">Edit</button>
-                                <button class="delete-quiz-btn">Delete</button>
-                            </td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-        `;
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+
         attachQuizListListeners();
         document.getElementById("openCreateQuizBtn").addEventListener("click", openCreateQuizContainer);
+
+        document.getElementById("quizSearchInput").addEventListener("input", function () {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll(".quiz-table tbody tr");
+
+            rows.forEach(row => {
+                const title = row.cells[0].textContent.toLowerCase();
+                const category = row.cells[1].textContent.toLowerCase();
+                const difficulty = row.cells[2].textContent.toLowerCase();
+
+                if (title.includes(filter) || category.includes(filter) || difficulty.includes(filter)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
     }
+
 
     function attachQuizListListeners() {
         const editQuizButtons = document.querySelectorAll(".edit-quiz-btn");
@@ -118,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
         editQuizContainer.style.display = "none";
         createQuizContainer.style.display = "flex";
         document.querySelector("header h1").textContent = "Create New Quiz";
-        resetCreateQuizForm(); 
+        resetCreateQuizForm();
     }
 
     function resetCreateQuizForm() {
@@ -130,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (quizNameInput) quizNameInput.value = "";
         if (quizDescriptionTextarea) quizDescriptionTextarea.value = "";
         if (quizCategoryInput) quizCategoryInput.value = "";
-        if (quizDifficultySelect) quizDifficultySelect.value = "Easy"; 
+        if (quizDifficultySelect) quizDifficultySelect.value = "Easy";
         const questionNumberSpan = createQuizContainer.querySelector("#question-number");
         const selectQuestionDropdown = createQuizContainer.querySelector("#select-question");
         const removeQuestionButton = createQuizContainer.querySelector("#remove-question");
@@ -513,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentQuizIndex = null;
     let currentQuestionIndex = null;
     let editingQuiz = null;
-    let hasChanges = false; 
+    let hasChanges = false;
 
     function populateQuizDropdown() {
         if (quizSelectDropdown) {

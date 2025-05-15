@@ -9,7 +9,7 @@ body {
 header {
     display: flex;
     align-items: center;
-    justify-content: space-between; 
+    justify-content: space-between;
     background-color: #1c1c2e;
     padding: 10px 5px;
 }
@@ -446,7 +446,10 @@ a:hover {
     color: #0d6efd;
 }
 
-.create-quiz-btn {
+.create-quiz-btn,
+#editProfileBtn,
+#saveProfileBtn,
+#cancelEditBtn {
     background-color: #6a5acd;
     border: none;
     color: white;
@@ -459,7 +462,10 @@ a:hover {
     margin-top: 10px;
 }
 
-.create-quiz-btn:hover {
+.create-quiz-btn:hover,
+#editProfileBtn:hover,
+#saveProfileBtn:hover,
+#cancelEditBtn:hover {
     background-color: #483d8b;
 }
 
@@ -517,12 +523,15 @@ a:hover {
     .left-side-header {
         display: flex;
         align-items: center;
-        width: auto; /* Allow it to size based on content */
+        width: auto;
+        /* Allow it to size based on content */
     }
 
     .search-bar {
-        flex-grow: 1; /* Makes it take remaining space */
-        max-width: 50%; /* Limits width */
+        flex-grow: 1;
+        /* Makes it take remaining space */
+        max-width: 50%;
+        /* Limits width */
         margin-left: 10px;
     }
 
@@ -544,4 +553,3 @@ a:hover {
         font-size: 14px;
     }
 }
-

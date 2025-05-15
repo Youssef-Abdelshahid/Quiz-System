@@ -71,6 +71,7 @@ function login() {
     if (email === adminEmail && password === adminPassword) {
         // alert("Welcome Admin!");
         localStorage.setItem("loggedInUserEmail", adminEmail);
+        localStorage.setItem("loggedInUserPassword", adminPassword);
         localStorage.setItem("loggedInUserName", "Admin");
         localStorage.setItem("loggedInUserRole", "Admin");
         window.location.href = "admin_page.html";
@@ -79,8 +80,11 @@ function login() {
     } else if (email === userEmail && password === userPassword) {
         // alert("Welcome User!");
         localStorage.setItem("loggedInUserEmail", userEmail);
+        localStorage.setItem("loggedInUserPassword", userPassword);
         localStorage.setItem("loggedInUserName", "Ahmed");
         localStorage.setItem("loggedInUserRole", "User");
+
+
         updateUserInterface();
         closePopup();
     } else {
@@ -151,6 +155,7 @@ function openProfilePopup() {
     let userEmail = localStorage.getItem("loggedInUserEmail");
     let userName = localStorage.getItem("loggedInUserName");
     let userRole = localStorage.getItem("loggedInUserRole");
+    let userpassword = localStorage.getItem("loggedInUserPassword");
 
     if (!userEmail || !userName || !userRole) return;
 
@@ -158,17 +163,66 @@ function openProfilePopup() {
     document.getElementById("popup-overlay").style.display = "flex";
     disableScroll();
 
-    let profileContent = `
-        <h2>Welcome, ${userName}</h2>
-        <p>Email: ${userEmail}</p>
-        <p>Role: ${userRole}</p>
-        <button class="btn-submit create-quiz-btn" onclick="createQuiz()">Create Quiz</button>
-        <button class="btn-submit create-quiz-btn" onclick="quizzesHistory()">History</button>
-        <button class="btn-submit" onclick="logout()">Logout</button>
+    const popupContent = document.getElementById("popup-content");
+    popupContent.innerHTML = `
+        <h2>Welcome, <span id="profile-name-text">${userName}</span></h2>
+        <p>Email: <span id="profile-email-text">${userEmail}</span></p>
+        <p>Role: <span id="profile-role-text">${userRole}</span></p>
+        <button id="editProfileBtn" class="btn-submit">Edit Profile</button>
+        <button id="createQuizBtn" class="btn-submit create-quiz-btn">Create Quiz</button>
+        <button id="historyBtn" class="btn-submit create-quiz-btn">History</button>
+        <button id="logoutBtn" class="btn-submit">Logout</button>
     `;
 
-    document.getElementById("popup-content").innerHTML = profileContent;
+    document.getElementById("createQuizBtn").onclick = createQuiz;
+    document.getElementById("historyBtn").onclick = quizzesHistory;
+    document.getElementById("logoutBtn").onclick = logout;
+
+    const editBtn = document.getElementById("editProfileBtn");
+    editBtn.addEventListener("click", () => {
+        popupContent.innerHTML = `
+            <h2>Welcome, <input id="profile-name-input" type="text" value="${userName}" style="width: 200px;"></h2>
+            <p>Email: <input id="profile-email-input" type="email" value="${userEmail}" style="width: 250px;"></p>
+            <p>Password: <input id="profile-password-input" type="text" value="${userpassword}" style="width: 250px;"></p>
+            <p>Role: <span id="profile-role-text">${userRole}</span></p>
+            <button id="saveProfileBtn" class="btn-submit">Save</button>
+            <button id="cancelEditBtn" class="btn-submit" >Cancel</button>
+        `;
+
+        document.getElementById("saveProfileBtn").addEventListener("click", () => {
+            const newName = document.getElementById("profile-name-input").value.trim();
+            const newEmail = document.getElementById("profile-email-input").value.trim();
+            const newPassword = document.getElementById("profile-password-input").value;
+
+            if (!newName) {
+                alert("Name cannot be empty");
+                return;
+            }
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailRegex.test(newEmail)) {
+                alert("Please enter a valid email address");
+                return;
+            }
+            if (newPassword && newPassword.length < 6) {
+                alert("Password must be at least 6 characters long");
+                return;
+            }
+
+            localStorage.setItem("loggedInUserName", newName);
+            localStorage.setItem("loggedInUserEmail", newEmail);
+            if (newPassword) {
+                localStorage.setItem("loggedInUserPassword", newPassword);
+            }
+
+            openProfilePopup();
+        });
+
+        document.getElementById("cancelEditBtn").addEventListener("click", () => {
+            openProfilePopup();
+        });
+    });
 }
+
 
 function createQuiz() {
     window.location.href = "create_quiz.html";

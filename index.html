@@ -12,9 +12,7 @@
 <body>
     <header>
         <div class="left-side-header">
-            <button class="menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
+
             <img src="images\Main_Logo.webp" alt="Logo" class="logo" onclick="redirectToHome()">
             <span class="site-name" onclick="redirectToHome()">Quiz Games</span>
         </div>
@@ -27,7 +25,7 @@
         </div>
 
         <div class="right-side-header">
-            <button class="icon-btn"><i class="fas fa-users"></i></button>
+            <!-- <button class="icon-btn"><i class="fas fa-users"></i></button> -->
             <button class="icon-btn"><i class="fas fa-heart"></i></button>
             <button class="login-btn" onclick="openPopup()">Login</button>
         </div>
@@ -37,10 +35,11 @@
         <div class="container">
             <h1>Quiz games</h1>
             <p class="subhead">Quiz your knowledge of the world in these exciting quiz games!
-                Have fun playing funny quizzes like Google Feud and the Idiot Test.  
-                Or test your grasp of world events in various trivia challenges!</p>                 <div class="select-container">
-                
-                
+                Have fun playing funny quizzes like Google Feud and the Idiot Test.
+                Or test your grasp of world events in various trivia challenges!</p>
+            <div class="select-container">
+
+
                 <select id="sort">
                     <option value="top">Top quizzes</option>
                     <option value="new">General knowledge</option>
@@ -76,15 +75,15 @@
                     <img src="images/trivia-quiz.jpeg" alt="quiz 1">
                     <p>Guess Their Answer</p>
                 </div>
-                    <div class="quiz" onclick="location.href='quiz_details.html';">
-                        <img src="images/planet-quiz.jpeg" alt="quiz 1">
-                        <p>Guess Their Answer</p>
-                    </div>
-                    <div class="quiz" onclick="location.href='quiz_details.html';">
-                        <img src="images/girl-quiz.jpeg" alt="quiz 1">
-                        <p>Guess Their Answer</p>
-                    </div>
-                    <div class="quiz" onclick="location.href='quiz_details.html';">
+                <div class="quiz" onclick="location.href='quiz_details.html';">
+                    <img src="images/planet-quiz.jpeg" alt="quiz 1">
+                    <p>Guess Their Answer</p>
+                </div>
+                <div class="quiz" onclick="location.href='quiz_details.html';">
+                    <img src="images/girl-quiz.jpeg" alt="quiz 1">
+                    <p>Guess Their Answer</p>
+                </div>
+                <div class="quiz" onclick="location.href='quiz_details.html';">
                     <img src="images/football-quiz.jpeg" alt="quiz 1">
                     <p>Guess Their Answer</p>
                 </div>
@@ -112,7 +111,7 @@
                     <img src="images/planet-quiz.jpeg" alt="quiz 1">
                     <p>Guess Their Answer</p>
                 </div>
-                
+
             </div>
             <div class="pagination">
                 <button class="prev">&lt;</button>
